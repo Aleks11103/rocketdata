@@ -20,7 +20,7 @@ from first_app import views
 
 router = routers.DefaultRouter()
 router.register(r'employees', views.EmployeeViewSet, basename='employee')
-router.register(r'level/1', views.EmployeeLevelViewSet, basename='level') 
+router.register(r'level/5', views.EmployeeLevelViewSet, basename='level5') 
 
 urlpatterns = [
     path('', include(router.urls)),
