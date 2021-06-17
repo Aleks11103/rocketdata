@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Employee
+from rest_framework_api_key.admin import APIKeyModelAdmin
+from .models import Employee, EmployeeAPIKey
 
 
 def reset_salary_paid(modeladmin, request, queryset):
@@ -12,3 +13,8 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_filter = ['position', 'level']
     actions = [reset_salary_paid]
 admin.site.register(Employee, EmployeeAdmin)
+
+
+@admin.register(EmployeeAPIKey)
+class EmployeeAPIKeyModelAdmin(APIKeyModelAdmin):
+    pass
