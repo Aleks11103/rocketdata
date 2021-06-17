@@ -8,7 +8,20 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'fio', 'position', 'date_of_employment', 'salary_amount', 'salary_paid', 'chief', 'level']
 
 
-class EmployeeLevelSerializer(serializers.HyperlinkedModelSerializer):
+class EmployeeDetailSerializer(serializers.Serializer):
+    fio = serializers.CharField(max_length=150)
+    position = serializers.CharField(max_length=100 )
+    date_of_employment = serializers.DateField()
+    salary_amount = serializers.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+    )
+    salary_paid = serializers.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+    )
+    level = serializers.CharField(max_length=1)
+
     class Meta:
         model = Employee
-        fields = ['url', 'fio', 'position', 'date_of_employment', 'salary_amount', 'salary_paid', 'chief', 'level']
+        fields = '__all__'

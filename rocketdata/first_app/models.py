@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework_api_key.models import AbstractAPIKey
 
 
 class Employee(models.Model):
@@ -50,3 +51,15 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.position + ', ' + self.fio
+
+
+class EmployeeAPIKey(AbstractAPIKey):
+    employee = models.ForeignKey(
+        Employee,
+        on_delete=models.CASCADE,
+        related_name="api_keys",
+    )
+
+    class Meta(AbstractAPIKey.Meta):
+        verbose_name = 'API ключ сотрудника'
+        verbose_name_plural = 'API ключи сотрудников'
