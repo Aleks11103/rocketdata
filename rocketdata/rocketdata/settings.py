@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,8 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3g&_9x7ldp%&#3p9^2u#99fv%ramv8zdxc+o=xfcd*!e24^#jc'
+# SECRET_KEY = 'django-insecure-3g&_9x7ldp%&#3p9^2u#99fv%ramv8zdxc+o=xfcd*!e24^#jc'
+SECRET_KEY = environ.get('SECRET_KEY')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+DEBUG = int(environ.get('DEBUG', default=0))
+
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -76,16 +84,28 @@ WSGI_APPLICATION = 'rocketdata.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'rocketdatadb',
+#         'USER': 'rocketdatauser',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rocketdatadb',
-        'USER': 'rocketdatauser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': environ.get('POSTGRES_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': environ.get('POSTGRES_DB', 'myprojectdb'),
+        'USER': environ.get('POSTGRES_USER', 'myuser'),
+        'PASSWORD': environ.get('POSTGRES_PASSWORD', 'password'),
+        'HOST': environ.get('POSTGRES_HOST', 'localhost'),
+        'PORT': environ.get('POSTGRES_PORT', '5432'),
     }
 }
+
 
 
 # Password validation
