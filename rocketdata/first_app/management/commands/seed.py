@@ -45,13 +45,17 @@ def create_employee(position, salary_amount, level):
         fio = random.choice(man_last_names) + ' ' + random.choice(man_names) + ' ' + random.choice(man_patronymics)
     else:
         fio = random.choice(woman_last_names) + ' ' + random.choice(woman_names) + ' ' + random.choice(woman_patronymics)
+    if count <= 1:
+        id_chief = 1
+    else:
+        id_chief = random.randint(1, count)
     employee = Employee(
         fio=fio,
         position=position,
         date_of_employment=str(random.randint(2010, 2020)) + '-' + str(random.randint(1, 12)) + '-' + str(random.randint(1, 28)),
         salary_amount=salary_amount,
         salary_paid=random.randint(100, salary_amount),
-        chief_id=random.randint(1, count),
+        chief_id=id_chief,
         level=level
     )
     employee.save()
@@ -65,5 +69,5 @@ def run_seed(self):
         create_employee('Начальник отдела', 3500, 3)
     for i in range(5):
         create_employee('Заместитель начальник отдела', 1500, 4)
-    for i in range(20):
+    for i in range(40):
         create_employee('Работник', 800, 5)

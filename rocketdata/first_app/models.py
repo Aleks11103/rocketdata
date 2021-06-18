@@ -50,7 +50,7 @@ class Employee(models.Model):
         verbose_name_plural = 'Сотрудники'
 
     def __str__(self):
-        return self.position + ', ' + self.fio
+        return self.fio + ', ' + self.position
 
 
 class EmployeeAPIKey(AbstractAPIKey):
